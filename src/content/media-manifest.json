@@ -1,0 +1,153 @@
+{
+  "images": {
+    "pampa-preta-conformacao.jpg": {
+      "src": "/img/pampa-preta-conformacao.jpg",
+      "width": 1440,
+      "height": 960
+    },
+    "sela-crioula.jpg": {
+      "src": "/img/sela-crioula.jpg",
+      "width": 1440,
+      "height": 1800
+    },
+    "castanho-marcha.jpg": {
+      "src": "/img/castanho-marcha.jpg",
+      "width": 1178,
+      "height": 1183
+    },
+    "tordilho-jovem.jpg": {
+      "src": "/img/tordilho-jovem.jpg",
+      "width": 1440,
+      "height": 1440
+    },
+    "baio-perfil.jpg": {
+      "src": "/img/baio-perfil.jpg",
+      "width": 888,
+      "height": 888
+    },
+    "rosilha-pampa.jpg": {
+      "src": "/img/rosilha-pampa.jpg",
+      "width": 1440,
+      "height": 1440
+    },
+    "alazao-pampa.jpg": {
+      "src": "/img/alazao-pampa.jpg",
+      "width": 1440,
+      "height": 1440
+    },
+    "cavaleiro-rancho.jpg": {
+      "src": "/img/cavaleiro-rancho.jpg",
+      "width": 1440,
+      "height": 1440
+    },
+    "baia-pampa.jpg": {
+      "src": "/img/baia-pampa.jpg",
+      "width": 1440,
+      "height": 1440
+    },
+    "cavalgada-movimento.jpg": {
+      "src": "/img/cavalgada-movimento.jpg",
+      "width": 1440,
+      "height": 1440
+    },
+    "prova-de-marcha.jpg": {
+      "src": "/img/prova-de-marcha.jpg",
+      "width": 1440,
+      "height": 956
+    },
+    "pampa-preta-gramado.jpg": {
+      "src": "/img/pampa-preta-gramado.jpg",
+      "width": 1440,
+      "height": 1439
+    },
+    "pampa-preta-baias.jpg": {
+      "src": "/img/pampa-preta-baias.jpg",
+      "width": 1440,
+      "height": 1440
+    },
+    "tordilho-campeao.jpg": {
+      "src": "/img/tordilho-campeao.jpg",
+      "width": 1179,
+      "height": 872
+    },
+    "baias-noite.jpg": {
+      "src": "/img/baias-noite.jpg",
+      "width": 1557,
+      "height": 1557
+    }
+  },
+  "videos": {
+    "hero": {
+      "mp4": "/videos/hero.mp4",
+      "poster": {
+        "src": "/img/hero-poster.jpg",
+        "width": 1080,
+        "height": 1920
+      },
+      "width": 1080,
+      "height": 1920
+    },
+    "redondel": {
+      "mp4": "/videos/redondel.mp4",
+      "poster": {
+        "src": "/img/redondel-poster.jpg",
+        "width": 720,
+        "height": 1280
+      },
+      "width": 720,
+      "height": 1280
+    },
+    "cavalgada": {
+      "mp4": "/videos/cavalgada.mp4",
+      "poster": {
+        "src": "/img/cavalgada-poster.jpg",
+        "width": 720,
+        "height": 1280
+      },
+      "width": 720,
+      "height": 1280
+    },
+    "pasto": {
+      "mp4": "/videos/pasto.mp4",
+      "poster": {
+        "src": "/img/pasto-poster.jpg",
+        "width": 720,
+        "height": 1280
+      },
+      "width": 720,
+      "height": 1280
+    }
+  },
+  "reviewSamples": {
+    "exemplo-1.jpg": {
+      "src": "/reviews/exemplo-1.jpg",
+      "width": 800,
+      "height": 800
+    },
+    "exemplo-2.jpg": {
+      "src": "/reviews/exemplo-2.jpg",
+      "width": 800,
+      "height": 800
+    },
+    "exemplo-3.jpg": {
+      "src": "/reviews/exemplo-3.jpg",
+      "width": 800,
+      "height": 800
+    },
+    "exemplo-4.jpg": {
+      "src": "/reviews/exemplo-4.jpg",
+      "width": 800,
+      "height": 531
+    },
+    "exemplo-5.jpg": {
+      "src": "/reviews/exemplo-5.jpg",
+      "width": 800,
+      "height": 1000
+    }
+  },
+  "logo": {
+    "src": "/logo/rancho-zimbrao.png",
+    "width": 799,
+    "height": 501
+  }
+}

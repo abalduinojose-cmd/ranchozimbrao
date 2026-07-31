@@ -1,0 +1,497 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ *
+ * Rancho Zimbrão — design system
+ *
+ * Marca monocromática de alto contraste. As seções alternam fundo preto
+ * e branco; todo componente lê --bg / --fg / --muted / --accent / --card,
+ * injetadas pelo <Section theme="dark|light">.
+ *
+ * A linguagem é editorial contemporânea: grotesca variável em escala
+ * grande, cantos generosos, superfícies "vidro" e fotografia em cor cheia.
+ * ------------------------------------------------------------------ */
+
+@theme {
+  /* Cores da marca */
+  --color-ink: #0b0b0c;
+  --color-paper: #f6f4f0; /* off-white quente, nunca #fff puro */
+  --color-muted-ink: #67655f;
+  --color-muted-paper: #a9a69f;
+  --color-accent: #c79a54; /* dourado sóbrio sobre fundo escuro */
+  --color-accent-deep: #86673a; /* mesma cor calibrada para fundo claro (AA) */
+  --color-sand: #eae4d9; /* superfície levemente tingida no tema claro */
+  --color-slate: #16161a; /* superfície levemente tingida no tema escuro */
+
+  /* Verde do WhatsApp, escurecido até o texto branco passar em AA (5,4:1).
+     O verde de marca puro dá só 3,1:1 com o corpo pequeno das etiquetas. */
+  --color-whats: #157a3e;
+  --color-whats-hover: #0f5f30;
+
+  /* Tipografia */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Escala fluida (320px → 1600px) */
+  --text-hero: clamp(2.75rem, 7.6vw, 8rem);
+  --text-display: clamp(2.25rem, 5.2vw, 4.75rem);
+  --text-title: clamp(1.5rem, 2.6vw, 2.25rem);
+  --text-lead: clamp(1.0625rem, 1.2vw, 1.375rem);
+  --text-body: clamp(1rem, 0.4vw + 0.92rem, 1.0625rem);
+  --text-label: clamp(0.6875rem, 0.2vw + 0.65rem, 0.8125rem);
+
+  /* Ritmo vertical */
+  --space-section: clamp(5rem, 10vh, 9rem);
+  --space-gutter: clamp(1.25rem, 4vw, 4rem);
+
+  /* Cantos */
+  --radius-xs: 8px;
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+
+  /* Movimento */
+  --ease-marcha: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-cut: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --breakpoint-3xl: 1800px;
+}
+
+/* ---------- Temas de seção ---------- */
+
+/* Valores derivados são literais em vez de color-mix(): a substituição de
+   custom property com color-mix precisa ser resolvida em cada elemento que
+   a lê, e isso pesava no recálculo de estilo de uma página longa. */
+
+[data-theme='dark'] {
+  --bg: #0b0b0c;
+  --fg: #f6f4f0;
+  --muted: #a9a69f;
+  --accent: #c79a54;
+  --card: #16161a;
+  --hair: rgba(246, 244, 240, 0.14);
+  --hair-strong: rgba(246, 244, 240, 0.3);
+  --surface: rgba(11, 11, 12, 0.92);
+  --glass: rgba(246, 244, 240, 0.08);
+  --tint: rgba(246, 244, 240, 0.06);
+  /* No escuro a sombra some: a separação vem da superfície mais clara */
+  --shadow-soft: 0 1px 0 rgba(246, 244, 240, 0.05), 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+  --shadow-lift: 0 1px 0 rgba(246, 244, 240, 0.07), 0 36px 60px -28px rgba(0, 0, 0, 0.9);
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f6f4f0;
+  --fg: #0b0b0c;
+  --muted: #67655f;
+  --accent: #86673a;
+  --card: #eae4d9;
+  --hair: rgba(11, 11, 12, 0.12);
+  --hair-strong: rgba(11, 11, 12, 0.26);
+  --surface: rgba(246, 244, 240, 0.93);
+  --glass: rgba(11, 11, 12, 0.05);
+  --tint: rgba(11, 11, 12, 0.045);
+  --shadow-soft: 0 1px 2px rgba(11, 11, 12, 0.04), 0 18px 40px -20px rgba(11, 11, 12, 0.22);
+  --shadow-lift: 0 2px 4px rgba(11, 11, 12, 0.05), 0 30px 56px -22px rgba(11, 11, 12, 0.28);
+  color-scheme: light;
+}
+
+/* ---------- Base ---------- */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* O cabeçalho é fixo: os alvos de âncora param abaixo dele, nunca atrás. */
+  main [id] {
+    scroll-margin-top: clamp(96px, 13vh, 132px);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent, var(--color-accent));
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  button,
+  a {
+    cursor: pointer;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-muted-ink) transparent;
+  }
+}
+
+/* ---------- Utilitários da marca ---------- */
+
+@utility shell {
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+@utility gutter {
+  padding-inline: var(--space-gutter);
+}
+
+/* Etiqueta mono em caixa alta: kickers, tags e fichas técnicas */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility themed {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+/* Superfície de cartão: o bloco de construção do layout.
+   Sem borda: a separação vem da sombra suave e do espaço em volta. */
+@utility card {
+  background-color: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Cartão que reage ao mouse: sobe um fio e a sombra abre junto */
+@utility card-hover {
+  transition:
+    transform 0.45s var(--ease-marcha),
+    box-shadow 0.45s var(--ease-marcha);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+/* Vidro: usado só onde há mídia atrás, nunca como decoração */
+@utility glass {
+  background-color: var(--surface);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* Profundidade: dois halos de luz muito discretos nos cantos, para o bloco
+   não ficar chapado. Usa o tom do próprio tema, então funciona nos dois. */
+@utility depth {
+  background-image:
+    radial-gradient(85% 65% at 12% -10%, var(--tint), transparent 62%),
+    radial-gradient(70% 55% at 96% 108%, var(--tint), transparent 58%);
+}
+
+/* Trilho horizontal com scroll-snap nativo (carrosséis e galeria).
+   `contain: paint` impede que os cards fora de tela entrem no scrollWidth
+   do documento e criem scroll horizontal na página. */
+@utility track {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  contain: paint;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Textura de papel: PNG de 128px em vez de filtro SVG, porque o
+   feTurbulence precisa ser rasterizado a cada paint. */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.04;
+    /* A URL vem de uma variável definida no layout: numa prévia em subpasta
+       o caminho absoluto do CSS não recebe o basePath sozinho. */
+    background-image: var(--grain-url);
+    background-size: 128px 128px;
+  }
+}
+
+/* O logotipo é preto sólido: sobre fundo escuro ele inverte. */
+@utility logo-mark {
+  [data-theme='dark'] & {
+    filter: invert(1);
+  }
+}
+
+/* ---------- Lenis (smooth scroll) ---------- */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* ------------------------------------------------------------------ *
+ * O CORTE DE MARCHA — elemento-assinatura
+ * A fronteira entre duas seções não é um corte reto: uma lâmina diagonal
+ * da cor seguinte varre a faixa conforme o scroll, com um filete dourado
+ * permanente marcando o eixo do corte.
+ * Usa scroll-driven animation, fora da main thread. Sem suporte, a lâmina
+ * fica no estado final e o filete permanece.
+ * ------------------------------------------------------------------ */
+
+.seam {
+  --seam-skew: -2.4deg;
+  position: relative;
+  height: clamp(64px, 8vh, 116px);
+  background: var(--seam-from);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.seam[data-reverse='true'] {
+  --seam-skew: 2.4deg;
+}
+
+.seam__blade {
+  position: absolute;
+  inset-inline: -8%;
+  top: 0;
+  height: 320%;
+  background: var(--seam-to);
+  transform-origin: 50% 0;
+  transform: skewY(var(--seam-skew)) translate3d(0, -16%, 0);
+  will-change: transform;
+}
+
+.seam__rule {
+  position: absolute;
+  inset-inline: -8%;
+  top: 50%;
+  height: 1px;
+  background: var(--seam-rule);
+  transform-origin: 50% 50%;
+  transform: skewY(var(--seam-skew));
+  z-index: 1;
+}
+
+/* Ponto de marcha: pequeno losango que ancora o filete */
+.seam__pin {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  background: var(--seam-rule);
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .seam__blade {
+      animation: seam-wipe linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 58%;
+    }
+  }
+}
+
+@keyframes seam-wipe {
+  from {
+    transform: skewY(var(--seam-skew)) translate3d(0, 106%, 0);
+  }
+  to {
+    transform: skewY(var(--seam-skew)) translate3d(0, -16%, 0);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Letreiro (marquee)
+ * Faixa contínua com o vocabulário da raça. Só transform, composto pela
+ * GPU, e parado quando o usuário pede menos movimento.
+ * ------------------------------------------------------------------ */
+
+.marquee {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-slide 46s linear infinite;
+}
+
+.marquee__group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding-inline: clamp(0.75rem, 2vw, 1.75rem);
+}
+
+@keyframes marquee-slide {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Entrada do hero
+ * CSS puro de propósito: começa no primeiro paint, sem esperar hidratação.
+ * Animar o hero com JS empurrava o LCP para depois do bundle.
+ * ------------------------------------------------------------------ */
+
+/* Título do hero: sobe suavemente até o lugar.
+   Só transform, sem opacidade: o título é o maior elemento da página, ou
+   seja, é ele que marca o LCP. Com fade, o navegador só considera a página
+   "pintada" quando a opacidade sobe, e isso custava segundos na métrica.
+   O fade fica nos blocos vizinhos, que são menores. */
+@keyframes hero-line {
+  from {
+    transform: translate3d(0, 26px, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-line {
+  animation: hero-line 0.7s var(--ease-marcha) both;
+}
+
+.hero-fade {
+  animation: hero-fade 0.45s var(--ease-marcha) both;
+}
+
+/* Cada linha do título é um bloco próprio, para o stagger funcionar */
+@utility line-mask {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ *
+ * Reveal de scroll
+ * Também em CSS, com scroll-driven animation: roda fora da main thread e
+ * não custa um componente cliente por bloco revelado. A alternativa em JS
+ * colocava ~60 observers e ~70KB de bundle no caminho crítico.
+ * Sem suporte a `animation-timeline`, o conteúdo já aparece.
+ * ------------------------------------------------------------------ */
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry calc(4% + var(--reveal-shift, 0%)) cover calc(28% + var(--reveal-shift, 0%));
+    }
+  }
+}
+
+/* ---------- Menos movimento ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,22 @@
+node_modules/
+.next/
+out/
+build/
+
+# Vídeos originais do cliente: ~44MB que só servem para reprocessar a mídia.
+# O resultado já vai versionado em public/videos.
+videos/
+videos instagram/
+
+# Saídas de verificação local
+scripts/shots/
+scripts/lh/
+scripts/probe/
+
+.DS_Store
+*.pem
+.env*
+!.env.example
+.vercel
+*.tsbuildinfo
+next-env.d.ts.bak

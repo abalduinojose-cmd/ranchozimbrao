@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://ranchozimbrao.com.br
+Sitemap: https://ranchozimbrao.com.br/sitemap.xml

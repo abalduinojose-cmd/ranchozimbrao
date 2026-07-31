@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
 
+  // Some o selo do Next no canto durante o `next dev`. Ele nunca sai na
+  // build, mas atrapalha na hora de conferir o layout.
+  devIndicators: false,
+
   ...(isExport ? { output: 'export' as const, basePath, trailingSlash: true } : {}),
 
   images: {

@@ -6,11 +6,32 @@ Página única, 100% estática, pronta para a Vercel.
 
 ```bash
 npm install
-npm run dev      # http://localhost:5204
-npm run build
+npm run dev          # http://localhost:5204
+npm run build        # build de produção (Vercel)
+npm run build:pages  # prévia estática em docs/ (GitHub Pages)
 npm run start
 npm run typecheck
 ```
+
+## Prévia para o cliente
+
+O site roda em dois destinos. Na Vercel é a build normal, com o otimizador de
+imagem do Next. No GitHub Pages é uma exportação estática numa subpasta, que
+serve para mandar o link ao cliente antes de existir domínio.
+
+```bash
+npm run build:pages
+git add docs && git commit -m "atualiza prévia" && git push
+```
+
+Isso gera `docs/`, que é a pasta que o Pages lê. O prefixo `/ranchozimbrao`
+entra por `NEXT_PUBLIC_BASE_PATH` e é aplicado em um lugar só: o helper
+`src/lib/asset.ts`, usado por `content/media.ts` e `content/reviews.ts`. Fora
+da prévia a variável fica vazia e nada muda.
+
+Para ligar o Pages uma primeira vez: **Settings › Pages › Source: Deploy from
+a branch › Branch: main / pasta /docs › Save**. O endereço fica
+`https://abalduinojose-cmd.github.io/ranchozimbrao/`.
 
 ## Identidade
 
